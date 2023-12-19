@@ -6,21 +6,23 @@ using System.Linq;
 using System.Windows;
 using FinanceManager.DAL.Repositories.Concreate.DataBaseMCSQLFinanceManager;
 using FinanceManager.DAL.Repositories.Abstract.DataBaseMCSQLFinanceManager;
-
+using FinanceManager.BLL.Repositories.Concreate.DataBaseMCSQLFinanceManager;
 
 namespace ActionManager.Admin.UI
 {
     class Menu
     {
-        private ImdbContext _context;
+        private FinanceManagerAdminContext _context;
         private FinanceManagerOrdersRepository _ordersRepository;
+        private IUsersRepository _usersRepository;
         private string username;
         private string password;
 
         public Menu()
         {
-            _context = new ImdbContext(1);
+            _context = new FinanceManagerAdminContext(1);
             _ordersRepository = new FinanceManagerOrdersRepository(_context);
+            _usersRepository = new FinanceManagerUserRepository(_context);
 
             while (Authentication()) { }
         }
@@ -84,6 +86,7 @@ namespace ActionManager.Admin.UI
                         var userInputList = Console.ReadLine()!.Split(' ');
                         username = userInputList[0];
                         password = userInputList[1];
+
                         return IsAuthenticated(username, password);
                     case "-1":
                         Console.WriteLine("~~~~~Access terminated~~~~~");
@@ -105,9 +108,9 @@ namespace ActionManager.Admin.UI
         {
             foreach (var user in _context.Users)
             {
-                if (username == user.Login)
+                if (username == user.Username)
                 {
-                    if (password == user.Password)
+                    if (_usersRepository.VerifyPassword(password + user.Salt, user.Password))
                     {
                         Console.WriteLine($"~~~~~Access granted~~~~~" +
                             $"\n~~~~~Welcome {username}~~~~~");
@@ -130,7 +133,7 @@ namespace ActionManager.Admin.UI
         {
             foreach (var order in _ordersRepository.GetDbSet().Include(a => a.Product))
             {
-                Console.WriteLine($"Order ID: {order.OrderId}, Date: {order.Date}, Is Delivery: {order.IsDelivery}, Product Name: {order.Product.Name}" +
+                Console.WriteLine($"Order ID: {order.OrderId}, Date: {order.InsertTime}, Is Delivery: {order.IsDelivery}, Product Name: {order.Product.ProductName}" +
                     $"Product Price: {order.Product.Price}, Product Quantity: {order.Product.Quantity}, Order Quantity: {order.Quantity}\n");
             }
         }
@@ -153,7 +156,7 @@ namespace ActionManager.Admin.UI
             }
             int quantity= Convert.ToInt32(input[2]);
 
-            var product = _context.Products.SingleOrDefault(p => p.Name == productName);
+            var product = _context.Products.SingleOrDefault(p => p.ProductName == productName);
             if (product != null)
             {
                 var order = new Order()
@@ -162,7 +165,8 @@ namespace ActionManager.Admin.UI
                     IsDelivery = isDelivery,
                     Product = product,
                     Quantity = quantity,
-                    Date = DateTime.Now,
+                    InsertTime = DateTime.Now,
+                    UpdateTime = DateTime.Now,
                 };
                 _ordersRepository.Create(order);
             }
@@ -197,7 +201,7 @@ namespace ActionManager.Admin.UI
             {
                 order.IsDelivery = isDelivery;
                 order.Quantity = quantity;
-                order.Date = DateTime.Now;
+                order.UpdateTime = DateTime.Now;
 
                 _ordersRepository.Update(order);
             }

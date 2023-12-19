@@ -10,45 +10,40 @@ using System.Threading.Tasks;
 
 namespace FinanceManager.DAL.Repositories.Concreate.DataBaseMCSQLFinanceManager
 {
-    public class FinanceManagerOrdersRepository : IOrdersRepository
+    public class FinanceManagerProductsRepository : IProductsRepository
     {
         private FinanceManagerAdminContext _context;
-        public FinanceManagerOrdersRepository(FinanceManagerAdminContext context) 
+        public FinanceManagerProductsRepository(FinanceManagerAdminContext context) 
         {
             _context = context;
         }
 
-        public void Create(Order entity)
+        public void Create(Product entity)
         {
-            _context.Orders.Add(entity);
+            _context.Products.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Delete(Order entity)
+        public void Delete(Product entity)
         {
-            _context.Orders.Remove(entity);
+            _context.Products.Remove(entity);
             _context.SaveChanges();
         }
 
-        public DbSet<Order> GetDbSet()
+        public DbSet<Product> GetDbSet()
         {
-            return _context.Orders;
+            return _context.Products;
         }
 
-        public List<Order> GetList()
+        public List<Product> GetList()
         {
-            return _context.Orders.ToList();
+            return GetDbSet().ToList();
         }
 
-        public void Update(Order entity)
+        public void Update(Product entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
-        }
-
-        public bool CheckQuantity(int quantity)
-        {
-            return quantity > 0;
         }
     }
 }

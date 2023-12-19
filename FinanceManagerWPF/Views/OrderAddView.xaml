@@ -1,0 +1,42 @@
+﻿<Window x:Class="WPF.Views.OrderAddView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.Views"
+        mc:Ignorable="d"
+        Title="Order Add" Height="400" Width="600">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Updated TextBox with DataTrigger -->
+        <ComboBox Grid.Row = "0" SelectedItem="{Binding SelectedTypeProduct}" Width="100">
+            <ComboBoxItem Content="Book"/>
+            <ComboBoxItem Content="Jogurt"/>
+            <ComboBoxItem Content="Milk"/>
+        </ComboBox>
+
+        <!-- Discount Percentage TextBox with Validation -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Enter Quantity:"/>
+            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Margin="0,5,0,0"/>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=quantityTextBox}" Foreground="Red" Margin="0,0,0,5"/>
+        </StackPanel>
+
+        <!-- Updated TextBox with DataTrigger -->
+        <ComboBox Grid.Row = "2" SelectedItem="{Binding IsDelivery}" Width="100">
+            <ComboBoxItem Content="true"/>
+            <ComboBoxItem Content="false"/>
+        </ComboBox>
+
+        <!-- Add to Actions Button -->
+        <Button Grid.Row="3" Content="Submit" Margin="10" Command="{Binding SubmitCommand}" />
+
+    </Grid>
+</Window>

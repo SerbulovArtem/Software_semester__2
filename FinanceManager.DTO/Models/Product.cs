@@ -6,16 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.DTO;
 
-[Table("Product")]
 public partial class Product
 {
     [Key]
+    [Column("product_id")]
     public int ProductId { get; set; }
 
-    public string Name { get; set; } = null!;
+    [Column("product_name")]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ProductName { get; set; } = null!;
 
+    [Column("price")]
     public double Price { get; set; }
 
+    [Column("quantity")]
     public int Quantity { get; set; }
 
     [InverseProperty("Product")]

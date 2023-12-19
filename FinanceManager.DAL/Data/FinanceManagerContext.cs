@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using FinanceManager.DTO;
-using DAL.Data.Startup;
 
 namespace FinanceManager.DAL.Data;
 
-public partial class ImdbContext : DbContext
+public partial class FinanceManagerContext : DbContext
 {
-    private int _type;
-    public ImdbContext(int type)
+    public FinanceManagerContext()
     {
-        _type = type;
     }
 
-    public ImdbContext(DbContextOptions<ImdbContext> options)
+    public FinanceManagerContext(DbContextOptions<FinanceManagerContext> options)
         : base(options)
     {
     }
@@ -26,7 +23,7 @@ public partial class ImdbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(Startup.GetConnectionString(_type));
+        => optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=FinanceManager;User ID=wintermute;Password=WTNLPARg83655;Integrated Security=False;TrustServerCertificate=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,23 +31,19 @@ public partial class ImdbContext : DbContext
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAFAE9BC5E7");
 
-            entity.Property(e => e.OrderId).ValueGeneratedNever();
-
             entity.HasOne(d => d.Product).WithMany(p => p.Orders)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Order__ProductID__32E0915F");
+                .HasConstraintName("FK_Orders_Products");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.ProductId).HasName("PK__Product__B40CC6CD8BDB40EE");
-
-            entity.Property(e => e.ProductId).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Login).HasName("PK__User__5E55825ABD22817D");
+            entity.HasKey(e => e.Username).HasName("PK__User__5E55825ABD22817D");
         });
 
         OnModelCreatingPartial(modelBuilder);

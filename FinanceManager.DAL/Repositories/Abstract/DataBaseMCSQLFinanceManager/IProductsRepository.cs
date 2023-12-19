@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace FinanceManager.DAL.Repositories.Abstract.DataBaseMCSQLFinanceManager
 {
-    public interface IOrdersRepository : IRepository<Order>
+    public interface IProductsRepository : IRepository<Product>
     {
-        public bool CheckQuantity(int quantity);
+
     }
 }

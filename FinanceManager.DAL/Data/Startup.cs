@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
-namespace DAL.Data.Startup
+namespace FinanceManager.DAL.Data
 {
     public class Startup
     {
         public static string GetConnectionString(int type)
         {
             var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("D:\\Software_semester__2\\FinanceManager.DAL\\Data\\appsettings.json");
+            builder.AddJsonFile("D:\\University\\Ivan_pz\\FinanceManager.DAL\\Data\\appsettings.json");
             var configuration = builder.Build();
             string database = "";
             if (type == 1)

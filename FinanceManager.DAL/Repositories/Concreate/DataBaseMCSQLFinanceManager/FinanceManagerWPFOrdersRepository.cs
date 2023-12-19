@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace FinanceManager.DAL.Repositories.Concreate.DataBaseMCSQLFinanceManager
 {
-    public class FinanceManagerOrdersRepository : IOrdersRepository
+    public class FinanceManagerWPFOrdersRepository : IOrdersRepository
     {
-        private FinanceManagerAdminContext _context;
-        public FinanceManagerOrdersRepository(FinanceManagerAdminContext context) 
+        private FinanceManagerContext _context;
+        public FinanceManagerWPFOrdersRepository(FinanceManagerContext context) 
         {
             _context = context;
         }
@@ -37,7 +37,7 @@ namespace FinanceManager.DAL.Repositories.Concreate.DataBaseMCSQLFinanceManager
 
         public List<Order> GetList()
         {
-            return _context.Orders.ToList();
+            return GetDbSet().Include(o => o.Product).ToList();
         }
 
         public void Update(Order entity)

@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FinanceManager.BLL\FinanceManager.BLL.csproj" />
     <ProjectReference Include="..\FinanceManager.DAL\FinanceManager.DAL.csproj" />
   </ItemGroup>
 

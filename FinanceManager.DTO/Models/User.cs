@@ -6,13 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceManager.DTO;
 
-[Table("User")]
 public partial class User
 {
     [Key]
-    [StringLength(32)]
-    public string Login { get; set; } = null!;
+    [Column("username")]
+    [StringLength(255)]
+    [Unicode(false)]
+    public string Username { get; set; } = null!;
 
-    [StringLength(32)]
+    [Column("password")]
+    [StringLength(255)]
+    [Unicode(false)]
     public string Password { get; set; } = null!;
+
+    [Column("salt")]
+    [StringLength(255)]
+    [Unicode(false)]
+    public string Salt { get; set; } = null!;
 }

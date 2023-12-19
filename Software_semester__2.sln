@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceManager.DTO", "Finan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceManager.Tests", "FinanceManager.Tests\FinanceManager.Tests.csproj", "{4BBE8B6A-0CA7-4C5A-84D5-81DEBD94B19A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceManager.BLL", "FinanceManager.BLL\FinanceManager.BLL.csproj", "{96BB30E6-7008-4D3E-960A-68E6CE36EDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceManagerWPF", "FinanceManagerWPF\FinanceManagerWPF.csproj", "{39BF035B-23FB-475A-A5F9-7B8481D77050}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4BBE8B6A-0CA7-4C5A-84D5-81DEBD94B19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBE8B6A-0CA7-4C5A-84D5-81DEBD94B19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBE8B6A-0CA7-4C5A-84D5-81DEBD94B19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96BB30E6-7008-4D3E-960A-68E6CE36EDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96BB30E6-7008-4D3E-960A-68E6CE36EDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96BB30E6-7008-4D3E-960A-68E6CE36EDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96BB30E6-7008-4D3E-960A-68E6CE36EDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39BF035B-23FB-475A-A5F9-7B8481D77050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39BF035B-23FB-475A-A5F9-7B8481D77050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39BF035B-23FB-475A-A5F9-7B8481D77050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39BF035B-23FB-475A-A5F9-7B8481D77050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

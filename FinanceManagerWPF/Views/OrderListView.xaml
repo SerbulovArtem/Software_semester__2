@@ -1,0 +1,61 @@
+﻿<Window x:Class="WPF.Views.OrderListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:local="clr-namespace:WPF.Views"
+        mc:Ignorable="d"
+        Title="Order List" Height="600" Width="1000">
+    <Window.Resources>
+        <CollectionViewSource 
+                  Source="{Binding Path=OrderList}"   
+                  x:Key="OrderCollection" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource OrderCollection}}" 
+          x:Name="dgOrders"
+          AutoGenerateColumns="False"
+          SelectionMode="Single"
+          SelectionUnit="FullRow"
+          GridLinesVisibility="Horizontal"
+          CanUserDeleteRows="False"
+          CanUserAddRows="False" 
+          CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Product Name" Width="SizeToCells" IsReadOnly="True" MinWidth="40" Binding="{Binding Product.ProductName}" />
+                <DataGridTextColumn Header="Quantity" Width="SizeToCells" IsReadOnly="True" MinWidth="40" Binding="{Binding Quantity}" />
+                <DataGridTextColumn Header="IsDelivery" Width="SizeToCells" IsReadOnly="True" MinWidth="40" Binding="{Binding IsDelivery}" />
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Change" Click="ChangeButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="DeleteButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name ="AddOrder" Grid.Row="1" Content="Add Order" Click="AddOrder_Click" VerticalAlignment="Top" Margin="10"/>
+    </Grid>
+</Window>
